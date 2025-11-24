@@ -122,7 +122,7 @@ pgadmin
 
 ### pgAdmin Dashboard
 
-- http://localhost:8080
+- http://localhost:5050
 - email: admin@example.com
 - password: admin
 
