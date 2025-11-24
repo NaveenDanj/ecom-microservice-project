@@ -1,0 +1,137 @@
+version: "3.8"
+
+services:
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  postgres-user:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: user_db
+    ports:
+      - "5433:5432"
+
+  postgres-product:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: product
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: product_db
+    ports:
+      - "5434:5432"
+
+  postgres-order:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: order
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: order_db
+    ports:
+      - "5435:5432"
+
+  postgres-payment:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: payment
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: payment_db
+    ports:
+      - "5436:5432"
+
+  postgres-notification:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: notification
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: notification_db
+    ports:
+      - "5437:5432"
+
+  user-service:
+    build: ./user-service
+    depends_on:
+      - postgres-user
+      - rabbitmq
+    environment:
+      DB_HOST: postgres-user
+      DB_PORT: "5432"
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: user_db
+    ports:
+      - "8081:8081"
+
+  product-service:
+    build: ./product-service
+    depends_on:
+      - postgres-product
+      - rabbitmq
+    environment:
+      DB_HOST: postgres-product
+      DB_PORT: "5432"
+      DB_USER: product
+      DB_PASSWORD: password
+      DB_NAME: product_db
+    ports:
+      - "8082:8082"
+
+  order-service:
+    build: ./order-service
+    depends_on:
+      - postgres-order
+      - rabbitmq
+    environment:
+      DB_HOST: postgres-order
+      DB_PORT: "5432"
+      DB_USER: order
+      DB_PASSWORD: password
+      DB_NAME: order_db
+    ports:
+      - "8083:8083"
+
+  payment-service:
+    build: ./payment-service
+    depends_on:
+      - postgres-payment
+      - rabbitmq
+    environment:
+      DB_HOST: postgres-payment
+      DB_PORT: "5432"
+      DB_USER: payment
+      DB_PASSWORD: password
+      DB_NAME: payment_db
+    ports:
+      - "8084:8084"
+
+  notify-service:
+    build: ./notify-service
+    depends_on:
+      - postgres-notification
+      - rabbitmq
+    environment:
+      DB_HOST: postgres-notification
+      DB_PORT: "5432"
+      DB_USER: notification
+      DB_PASSWORD: password
+      DB_NAME: notification_db
+    ports:
+      - "8085:8085"
+
