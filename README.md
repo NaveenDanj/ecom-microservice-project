@@ -115,9 +115,17 @@ pgadmin
 
 ### RabbitMQ Dashboard
 
-http://localhost:15672
-username: guest
-password: guest
+- http://localhost:15672
+- username: guest
+- password: guest
+
+
+### pgAdmin Dashboard
+
+- http://localhost:8080
+- email: admin@example.com
+- password: admin
+
 
 ## 🔑 Authentication Flow
 
