@@ -12,8 +12,7 @@ func UserRoutes(r *mux.Router) {
 	r.HandleFunc("/auth/register", controllers.RegisterHandler).Methods("POST")
 	r.HandleFunc("/auth/login", controllers.LoginHandler).Methods("POST")
 	r.Handle("/auth/current-user", middleware.UserAuthMiddleware(http.HandlerFunc(controllers.CurrentUserHandler))).Methods("GET")
-	// 	r.HandleFunc("/auth/login", controllers.LoginHandler).Methods("POST")
-	// 	r.HandleFunc("/auth/profile", controllers.ProfileHandler).Methods("GET")
+	r.HandleFunc("/auth/health", controllers.HealthCheckHandler).Methods("GET")
 	// 	r.HandleFunc("/auth/update-profile", controllers.UpdateHandler).Methods("PUT")
 }
 

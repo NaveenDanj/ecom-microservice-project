@@ -86,6 +86,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		"FirstName": user.FirstName,
 		"LastName":  user.LastName,
 		"Email":     user.Email,
+		"Phone":     user.Phone,
 		"type":      "welcome_email",
 	}
 

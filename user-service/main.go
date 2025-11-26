@@ -27,7 +27,3 @@ func main() {
 	fmt.Println("User service running on port 8081")
 	http.ListenAndServe(":8081", r)
 }
-
-func RegisterHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("User registered successfully!"))
-}
